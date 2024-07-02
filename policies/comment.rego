@@ -9,26 +9,20 @@ output[x] := y if {
 	not x in replacements
 }
 
-output["by"] := input.by
-
-output["id"] := input.id
-
-output["parent"] := input.parent
-
-output["time"] := input.time
-
-output["type"] := input.type
-
 # shorten comments
-output["text"] := sprintf("%s [...]", [short]) if {
+output["text"] := trim_maybe(short, trimmed) if {
 	input.type == "comment"
 	no_html := strings.replace_n({"<": "&lt;", ">": "&gt;"}, input.text)
-	short := max_len(no_html, 100)
+	[short, trimmed] := max_len(no_html, 100)
 }
 
 else := input.text
 
-max_len(str, k) := last if {
+trim_maybe(str, f) := sprintf("%s [...]", [str]) if f
+
+else := str
+
+max_len(str, k) := [last, trimmed] if {
 	ps := split(str, " ")
 	prefixes := [prefix |
 		some i in numbers.range(1, count(ps))
@@ -36,4 +30,5 @@ max_len(str, k) := last if {
 		count(prefix) <= k
 	]
 	last := prefixes[count(prefixes) - 1]
+	trimmed := count(last) != count(str)
 }
