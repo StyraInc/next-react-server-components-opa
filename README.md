@@ -1,6 +1,6 @@
 # Next.js App Router + React Server Components
 
-Try the demo live here: [**https://next-news.vercel.app**](https://https://next-news.vercel.app).
+Try the demo live here: [**https://next-news.vercel.app**](https://next-news.vercel.app).
 
 ## Introduction
 
@@ -8,10 +8,21 @@ This is a demo app of the Hacker News website clone, which shows Next.js App Rou
 
 ### Running Locally
 
+First start OPA with the included policies:
+
+```sh
+opa run -ldebug -w -s policies
+```
+
+Then spin up the Next.js dev setup:
+
 1. `pnpm install`
 2. `pnpm dev`
 
 Go to `localhost:3000`.
+
+Click on any story's comments. You'll find them all abbreviated to <= 100 characters.
+This happend on the server: it used @styra/opa to process the comments before returning them to the client.
 
 ### Deploy
 
