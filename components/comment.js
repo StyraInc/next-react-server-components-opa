@@ -1,20 +1,28 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import { useState } from 'react'
 
-import timeAgo from '../lib/time-ago';
+import timeAgo from '../lib/time-ago'
 
-import styles from './comment.module.css';
+import styles from './comment.module.css'
 
-export default function Comment({ user, text, date, comments, commentsCount }) {
-  const [toggled, setToggled] = useState(false);
+export default function Comment({
+  user,
+  userKarma,
+  text,
+  date,
+  comments,
+  commentsCount,
+  initToggled = false
+}) {
+  const [toggled, setToggled] = useState(initToggled)
 
-  const toggle = () => setToggled(!toggled);
+  const toggle = () => setToggled(!toggled)
 
   return (
     <div className={styles.comment}>
       <div className={styles.meta} suppressHydrationWarning>
-        {user} {timeAgo(new Date(date))} ago{' '}
+        {user} ({userKarma}) {timeAgo(new Date(date))} ago{' '}
         <span onClick={toggle} className={styles.toggle}>
           {toggled ? `[+${(commentsCount || 0) + 1}]` : '[-]'}
         </span>
@@ -32,8 +40,8 @@ export default function Comment({ user, text, date, comments, commentsCount }) {
               {comments.map((comment) => (
                 <Comment key={comment.id} {...comment} />
               ))}
-            </div>,
+            </div>
           ]}
     </div>
-  );
+  )
 }

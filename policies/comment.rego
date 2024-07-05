@@ -4,19 +4,23 @@ import rego.v1
 
 replacements := {"text"}
 
+karma := data.live.user(input.user).karma
+
 output[x] := y if {
 	some x, y in input
 	not x in replacements
 }
 
+# if true, the comment will be collapsed on first view (can be expanded)
+output["initToggled"] if karma < 1000
+
+output["userKarma"] := karma
+
 # shorten comments
 output["text"] := trim_maybe(short, trimmed) if {
-	input.type == "comment"
 	no_html := strings.replace_n({"<": "&lt;", ">": "&gt;"}, input.text)
 	[short, trimmed] := max_len(no_html, 100)
 }
-
-else := input.text
 
 trim_maybe(str, f) := sprintf("%s [...]", [str]) if f
 
