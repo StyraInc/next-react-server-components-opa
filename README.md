@@ -1,10 +1,8 @@
 # Next.js App Router + React Server Components
 
-Try the demo live here: [**https://next-news.vercel.app**](https://next-news.vercel.app).
-
 ## Introduction
 
-This is a demo app of the Hacker News website clone, which shows Next.js App Router with support for [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components).
+This is a demo app of the Hacker News website clone, which shows Next.js App Router with support for [React Server Components](https://nextjs.org/docs/app/building-your-application/rendering/server-components) **combined with server-side OPA evaluation** via [@styra/opa](https://www.npmjs.com/package/@styra/opa).
 
 ### Running Locally
 
@@ -13,6 +11,8 @@ First start OPA with the included policies:
 ```sh
 opa run -ldebug -w -s policies
 ```
+
+When using [Enterprise OPA](https://docs.styra.com/enterprise-opa), the `@styra/opa` SDK as used here will benefit from its [Batch API](https://docs.styra.com/enterprise-opa/reference/api-reference/batch-api).
 
 Then spin up the Next.js dev setup:
 
