@@ -21,14 +21,9 @@ Then spin up the Next.js dev setup:
 
 Go to `localhost:3000`.
 
-Click on any story's comments. You'll find them all abbreviated to <= 100 characters.
-This happend on the server: it used @styra/opa to process the comments before returning them to the client.
+Click on any story's comments. You'll find them all comments by users with karma less than 1000 (indicated in parenthesis after their name) **collapsed**.
+This happend on the server: it used `@styra/opa` to process the comments before returning them to the client, with the policies [comment.rego](policies/comment.rego) and [users.rego](policies/users.rego).
 
-### Deploy
-
-You can quickly deploy the demo to Vercel by clicking this link:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/templates/next.js/react-server-components)
 
 ## License
 
